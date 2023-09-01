@@ -201,7 +201,7 @@ const PostModal = ({ selectedPost, setSelectedPost }) => {
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                                                 </svg>
                                             </div>
-                                            {isOpen && (userId !== selectedPost?.userId) && (
+                                            {isOpen && (userId === selectedPost?.userId) && (
                                                 <div className="origin-top-right absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                                                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                                         <p
@@ -220,7 +220,7 @@ const PostModal = ({ selectedPost, setSelectedPost }) => {
                                                         </p>
                                                     </div>
                                                 </div>
-                                            )}{isOpen && (userId === selectedPost?.userId) && (
+                                            )}{isOpen && (userId !== selectedPost?.userId) && (
                                                 <div className="origin-top-right absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 ">
                                                     <div className="py-1 flex items-center gap-1 p-2 hover:text-red-900 hover:cursor-pointer" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                                         <svg onClick={() => setReportModal(!ReportModal)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 hover:text-red-900 hover:cursor-pointer">

@@ -91,6 +91,7 @@ const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const post = yield (0, postRepository_1.findById)(postId);
         if (post && (((_c = post.userId) === null || _c === void 0 ? void 0 : _c.toString()) === userId)) {
             const result = yield (0, postRepository_1.deleteById)(postId);
+            yield (0, reportPostRepository_1.findReportByPostIdAndDelete)(postId);
             if (result) {
                 res.status(200).json({
                     success: true,

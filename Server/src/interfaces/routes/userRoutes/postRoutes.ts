@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 import { deleteById, findById, savePost, updatePost, addComment, likeComment,deleteComment,updateComment } from "../../../adapters/repositories/postRepository"
 import cloudinaryUpload from "../../../adapters/middlewares/cloudinaryUpload"
 import { likePost } from "../../../useCases/user/postUseCases"
-import { reportPost } from "../../../adapters/repositories/reportPostRepository"
+import { findReportByPostIdAndDelete, reportPost } from "../../../adapters/repositories/reportPostRepository"
 
 
 const createPost = async (req: Request, res: Response) => {
@@ -73,8 +73,9 @@ const deletePost = async (req: Request, res: Response) => {
             throw new Error('Post or user details not found');
         }
         const post = await findById(postId);
-        if (post && (post.userId?.toString() ===userId)) {
+        if (post && (post.userId?.toString() === userId)) {
             const result = await deleteById(postId)
+            await findReportByPostIdAndDelete(postId)
             if (result) {
                 res.status(200).json({
                     success: true,

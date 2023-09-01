@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getReports = void 0;
+exports.deletePost = exports.getReports = void 0;
 const reportPostRepository_1 = require("../../../adapters/repositories/reportPostRepository");
 const getReports = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -36,3 +36,32 @@ const getReports = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.getReports = getReports;
+const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const postId = req.params.id;
+        const reportId = req.params.reportId;
+        const success = yield (0, reportPostRepository_1.deleteReportedPost)(postId);
+        if (success) {
+            const result = yield (0, reportPostRepository_1.deleteReport)(reportId);
+            if (result) {
+                res.status(200).json({
+                    success: true,
+                    message: 'Post deleted successfully',
+                });
+            }
+            else {
+                res.status(404).json({
+                    success: false,
+                    message: 'Post not found or deletion failed',
+                });
+            }
+        }
+    }
+    catch (error) {
+        res.status(400).json({
+            success: true,
+            message: 'error deleting post',
+        });
+    }
+});
+exports.deletePost = deletePost;

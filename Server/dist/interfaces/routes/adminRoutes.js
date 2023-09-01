@@ -18,4 +18,5 @@ adminRouter.get('/allUsers', adminAuth_1.default, getAllUsers_1.default);
 adminRouter.patch('/blockUser/:id', adminAuth_1.default, blockUserRouter_1.default);
 adminRouter.patch('/unblockUser/:id', adminAuth_1.default, unblockUserRouter_1.default);
 adminRouter.get('/reports', adminAuth_1.default, reportsRouter_1.getReports);
+adminRouter.delete('/posts/:id/:reportId', adminAuth_1.default, reportsRouter_1.deletePost);
 exports.default = adminRouter;

@@ -13,7 +13,6 @@ const CreatePost = ({ setCreateModal }) => {
 
   const onSubmit = async (values: any) => {
     try {
-      console.log(values)
       setIsLoading(true)
       values.userId = userId
       const result = await apiInstance.post('post', values, {

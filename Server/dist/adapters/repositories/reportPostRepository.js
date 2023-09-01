@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllReports = exports.reportPost = void 0;
+exports.findReportByPostIdAndDelete = exports.deleteReport = exports.deleteReportedPost = exports.getAllReports = exports.reportPost = void 0;
 const reportedPostModel_1 = __importDefault(require("../../entities/reportedPostModel"));
+const postModel_1 = __importDefault(require("../../entities/postModel"));
 const reportPost = (userId, reason, postId) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     try {
@@ -59,3 +60,37 @@ const getAllReports = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getAllReports = getAllReports;
+const deleteReport = (reportId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield reportedPostModel_1.default.findByIdAndDelete(reportId);
+        return ({ success: true });
+    }
+    catch (error) {
+        throw Error(error.message);
+    }
+});
+exports.deleteReport = deleteReport;
+const deleteReportedPost = (postId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield postModel_1.default.findByIdAndDelete(postId);
+        return ({ success: true });
+    }
+    catch (error) {
+        throw Error(error.message);
+    }
+});
+exports.deleteReportedPost = deleteReportedPost;
+const findReportByPostIdAndDelete = (postId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const report = yield reportedPostModel_1.default.findOne({ post: postId });
+        if (report) {
+            yield reportedPostModel_1.default.findByIdAndDelete(report._id);
+        }
+        else
+            return;
+    }
+    catch (error) {
+        throw error;
+    }
+});
+exports.findReportByPostIdAndDelete = findReportByPostIdAndDelete;
