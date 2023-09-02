@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
 interface IUser extends Document {
+    _id:string;
     name: string;
     email: string
     mobile: number | string;
@@ -80,3 +81,4 @@ const userModel: Schema<IUser> = new Schema({
 
 const user: Model<IUser> = mongoose.model<IUser>("User", userModel)
 export default user
+export {IUser}

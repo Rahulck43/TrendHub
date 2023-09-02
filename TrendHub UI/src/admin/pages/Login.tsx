@@ -19,7 +19,6 @@ const Login = () => {
   const [loginError, setLoginError] = useState('')
 
   const onSubmit = async (values: any) => {
-    console.log('onsubmit');
     try {
       const response = await apiInstance.post('/admin/login', values)
       const { success, message } = response.data

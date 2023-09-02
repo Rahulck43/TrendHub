@@ -3,6 +3,12 @@ import 'dotenv'
 import { NextFunction, Request, Response } from 'express'
 const jwtKey = process.env.JWT_KEY || ''
 
+interface DecodedToken {
+    user_id: string;
+    email: string
+    // Add any other properties from your JWT payload here
+}
+
 
 const userAuth = (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -33,5 +39,17 @@ const userAuth = (req: Request, res: Response, next: NextFunction) => {
     }
 }
 
+const decodeUser = async (token: string) => {
+    try {
+        const decodedToken = jwt.verify(token, jwtKey) as DecodedToken
+        const userId = decodedToken?.user_id
+        return userId
+
+    } catch (error: any) {
+        throw error(error)
+    }
+}
+
 export default userAuth
+export { decodeUser }
 

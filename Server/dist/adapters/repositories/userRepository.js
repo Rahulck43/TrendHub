@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUser = exports.getUserData = exports.unBlockUser = exports.blockUser = exports.findUserByMobile = exports.findUserByUserName = exports.findUserByEmail = exports.saveUser = exports.findUser = void 0;
+exports.updateUser = exports.getUserData = exports.unBlockUser = exports.blockUser = exports.findUserByMobile = exports.findUserByUserName = exports.findUserByEmail = exports.saveUser = exports.findUserById = exports.findUser = void 0;
 const userModel_1 = __importDefault(require("../../entities/userModel"));
 const postModel_1 = __importDefault(require("../../entities/postModel"));
 const findUser = (email, mobile, userName) => __awaiter(void 0, void 0, void 0, function* () {
@@ -36,6 +36,19 @@ const findUser = (email, mobile, userName) => __awaiter(void 0, void 0, void 0, 
     }
 });
 exports.findUser = findUser;
+const findUserById = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield userModel_1.default.findById(userId);
+        if (user)
+            return user;
+        else
+            return false;
+    }
+    catch (error) {
+        throw new Error('unexpected error while finding user');
+    }
+});
+exports.findUserById = findUserById;
 const findUserByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield userModel_1.default.findOne({ email });
     try {

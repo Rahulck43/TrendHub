@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 
 const Suggestion = () => {
+
+ 
   return (
     <div className='suggestions mt-8 mr-5 border-2 rounded-md p-4'>
       <div className="suggestions_title text-gray-400 font-bold">suggestions for you</div>

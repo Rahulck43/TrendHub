@@ -12,6 +12,7 @@ const usersRouter_1 = require("./userRoutes/usersRouter");
 const upload_1 = __importDefault(require("../../adapters/middlewares/upload"));
 const userAuth_1 = __importDefault(require("../../adapters/middlewares/userAuth"));
 const postRoutes_1 = require("./userRoutes/postRoutes");
+const followRoutes_1 = require("./userRoutes/followRoutes");
 const userRouter = (0, express_1.Router)();
 userRouter.post('/signup', signUp_1.default);
 userRouter.post('/login', userLogin_1.default);
@@ -28,4 +29,5 @@ userRouter.put('/posts/:postId/comments/:commentId/like', userAuth_1.default, po
 userRouter.delete('/posts/:postId/comments/:commentId', userAuth_1.default, postRoutes_1.deleteCommentRoute);
 userRouter.put('/posts/:postId/comments/:commentId', userAuth_1.default, postRoutes_1.putEditComment);
 userRouter.post('/posts/:id/report', userAuth_1.default, postRoutes_1.postReport);
+userRouter.post('/users/:id/follow', userAuth_1.default, followRoutes_1.followUnfollow);
 exports.default = userRouter;

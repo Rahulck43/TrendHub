@@ -1,7 +1,6 @@
 import { Error } from "mongoose";
 import postModel from "../../entities/postModel";
 import { Comment, Post } from "../../entities/types";
-import mongoose from "mongoose";
 
 
 const savePost = async (post: Post) => {

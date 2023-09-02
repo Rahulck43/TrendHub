@@ -19,6 +19,16 @@ const findUser = async (email?: String, mobile?: Number, userName?: String) => {
     }
 }
 
+const findUserById= async(userId:string)=>{
+    try {
+        const user = await userModel.findById(userId)
+        if (user) return user
+        else return false
+    } catch (error) {
+        throw new Error('unexpected error while finding user')
+    }
+}
+
 
 
 const findUserByEmail = async (email: string | number) => {
@@ -194,4 +204,4 @@ const updateUser = async ({ userId, name, bio, location,secure_url }: { userId: 
     }
 }
 
-export { findUser, saveUser, findUserByEmail, findUserByUserName, findUserByMobile, blockUser, unBlockUser, getUserData, updateUser }
+export { findUser,findUserById, saveUser, findUserByEmail, findUserByUserName, findUserByMobile, blockUser, unBlockUser, getUserData, updateUser }
