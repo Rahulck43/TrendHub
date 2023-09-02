@@ -52,11 +52,19 @@ const unfollow = (userId, followerId) => __awaiter(void 0, void 0, void 0, funct
 exports.unfollow = unfollow;
 const getSuggestedUsersList = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const suggestions = yield userModel_1.default.find({ _id: { $ne: userId } });
-        console.log(userId);
-        console.log(suggestions);
+        const suggestions = yield userModel_1.default.find({
+            _id: { $ne: userId },
+            followers: { $nin: [userId] }
+        });
+        if (suggestions) {
+            console.log(suggestions.length);
+            return suggestions;
+        }
+        else
+            throw new Error('error finding suggestions');
     }
     catch (error) {
+        throw error(error);
     }
 });
 exports.getSuggestedUsersList = getSuggestedUsersList;

@@ -32,8 +32,16 @@ const getSuggestions=async(req:Request,res:Response)=>{
         const token = req.cookies.jwtToken
         const userId=await decodeUser(token)
         const suggestedUsers=await getSuggestedUsersList(userId)
-    } catch (error) {
-        
+        res.status(200).json({
+            success:true,
+            data:suggestedUsers,
+            message:'suggestions fetched successfully'
+        })
+    } catch (error:any) {
+        res.status(400).json({
+            success:false,
+            message:error.message
+        })
     }
 }
 

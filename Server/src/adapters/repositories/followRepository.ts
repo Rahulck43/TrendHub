@@ -49,13 +49,18 @@ const unfollow = async (userId: string, followerId: string) => {
     }
 }
 
+
 const getSuggestedUsersList = async (userId: string) => {
     try {
-        const suggestions = await userModel.find({_id:{$ne:userId}})
-        console.log(userId)
-        console.log(suggestions)
-    } catch (error) {
-
+        const suggestions = await userModel.find({ 
+            _id: { $ne: userId } ,
+            followers:{$nin:[userId]}
+        })
+        if (suggestions) {
+            return suggestions
+        } else throw new Error('error finding suggestions')
+    } catch (error: any) {
+        throw error(error)
     }
 }
 

@@ -44,8 +44,17 @@ const getSuggestions = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const token = req.cookies.jwtToken;
         const userId = yield (0, userAuth_1.decodeUser)(token);
         const suggestedUsers = yield (0, followRepository_1.getSuggestedUsersList)(userId);
+        res.status(200).json({
+            success: true,
+            data: suggestedUsers,
+            message: 'suggestions fetched successfully'
+        });
     }
     catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error.message
+        });
     }
 });
 exports.getSuggestions = getSuggestions;
