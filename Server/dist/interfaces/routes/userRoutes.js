@@ -30,4 +30,5 @@ userRouter.delete('/posts/:postId/comments/:commentId', userAuth_1.default, post
 userRouter.put('/posts/:postId/comments/:commentId', userAuth_1.default, postRoutes_1.putEditComment);
 userRouter.post('/posts/:id/report', userAuth_1.default, postRoutes_1.postReport);
 userRouter.post('/users/:id/follow', userAuth_1.default, followRoutes_1.followUnfollow);
+userRouter.get('/users/suggestions', userAuth_1.default, followRoutes_1.getSuggestions);
 exports.default = userRouter;

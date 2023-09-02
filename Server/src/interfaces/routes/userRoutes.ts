@@ -8,7 +8,7 @@ import  { editProfile } from "./userRoutes/usersRouter";
 import upload from "../../adapters/middlewares/upload";
 import userAuth from "../../adapters/middlewares/userAuth";
 import { createPost, deletePost, editPost,updateLike,getPost,postComment,putCommentLike,deleteCommentRoute,putEditComment,postReport } from "./userRoutes/postRoutes";
-import { followUnfollow } from "./userRoutes/followRoutes";
+import { followUnfollow ,getSuggestions} from "./userRoutes/followRoutes";
 
 
 
@@ -30,6 +30,7 @@ userRouter.delete('/posts/:postId/comments/:commentId',userAuth,deleteCommentRou
 userRouter.put('/posts/:postId/comments/:commentId',userAuth,putEditComment)
 userRouter.post('/posts/:id/report',userAuth,postReport)
 userRouter.post('/users/:id/follow',userAuth,followUnfollow)
+userRouter.get('/users/suggestions',userAuth,getSuggestions)
 
 
 

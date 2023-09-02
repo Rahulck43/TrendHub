@@ -1,15 +1,20 @@
 import userModel from "../../entities/userModel";
 
 
-const follow=async(userId:string,followerId:string)=>{
+const follow = async (userId: string, followerId: string) => {
     try {
-        const follower= await userModel.findById(followerId)
+        const follower = await userModel.findById(followerId)
         const updatedUser = await userModel.findByIdAndUpdate(
             userId,
             { $push: { following: follower?._id } },
             { new: true }
         )
         if (updatedUser) {
+            await userModel.findByIdAndUpdate(
+                followerId,
+                { $push: { followers: userId } },
+                { new: true }
+            )
             return updatedUser
         } else {
             throw new Error('error while following')
@@ -22,13 +27,18 @@ const follow=async(userId:string,followerId:string)=>{
 
 const unfollow = async (userId: string, followerId: string) => {
     try {
-        const follower= await userModel.findById(followerId)
+        const follower = await userModel.findById(followerId)
         const updatedUser = await userModel.findByIdAndUpdate(
             userId,
             { $pull: { following: follower?._id } },
             { new: true }
         )
         if (updatedUser) {
+            await userModel.findByIdAndUpdate(
+                followerId,
+                { $pull: { followers: userId } },
+                { new: true }
+            )
             return updatedUser
         } else {
             throw new Error('error while unfollowing')
@@ -39,6 +49,14 @@ const unfollow = async (userId: string, followerId: string) => {
     }
 }
 
+const getSuggestedUsersList = async (userId: string) => {
+    try {
+        const suggestions = await userModel.find({_id:{$ne:userId}})
+        console.log(userId)
+        console.log(suggestions)
+    } catch (error) {
 
+    }
+}
 
-export {follow,unfollow}
+export { follow, unfollow, getSuggestedUsersList }

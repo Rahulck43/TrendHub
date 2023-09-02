@@ -9,9 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.followUnfollow = void 0;
+exports.getSuggestions = exports.followUnfollow = void 0;
 const userAuth_1 = require("../../../adapters/middlewares/userAuth");
 const followUseCases_1 = require("../../../useCases/user/followUseCases");
+const followRepository_1 = require("../../../adapters/repositories/followRepository");
 const followUnfollow = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const token = req.cookies.jwtToken;
@@ -38,3 +39,13 @@ const followUnfollow = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.followUnfollow = followUnfollow;
+const getSuggestions = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const token = req.cookies.jwtToken;
+        const userId = yield (0, userAuth_1.decodeUser)(token);
+        const suggestedUsers = yield (0, followRepository_1.getSuggestedUsersList)(userId);
+    }
+    catch (error) {
+    }
+});
+exports.getSuggestions = getSuggestions;

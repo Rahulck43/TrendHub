@@ -1,6 +1,7 @@
 import { Request,Response } from "express"
 import { decodeUser } from "../../../adapters/middlewares/userAuth"
 import { followUnfollowUser } from "../../../useCases/user/followUseCases"
+import { getSuggestedUsersList } from "../../../adapters/repositories/followRepository"
 
 const followUnfollow=async(req:Request,res:Response)=>{
     try {
@@ -26,5 +27,15 @@ const followUnfollow=async(req:Request,res:Response)=>{
     }
 }
 
+const getSuggestions=async(req:Request,res:Response)=>{
+    try {
+        const token = req.cookies.jwtToken
+        const userId=await decodeUser(token)
+        const suggestedUsers=await getSuggestedUsersList(userId)
+    } catch (error) {
+        
+    }
+}
 
-export{followUnfollow}
+
+export{followUnfollow,getSuggestions}

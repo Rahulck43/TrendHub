@@ -1,9 +1,19 @@
 import React, { useEffect } from 'react'
+import apiInstance from '../../utils/apiInstance'
 
 
 const Suggestion = () => {
 
- 
+  
+
+  const fetchSuggestedUsers=async()=>{
+    const response=await apiInstance.get(`/users/suggestions`)
+    console.log(response.data.data)
+  }
+
+  useEffect(()=>{
+    fetchSuggestedUsers()
+  })
   return (
     <div className='suggestions mt-8 mr-5 border-2 rounded-md p-4'>
       <div className="suggestions_title text-gray-400 font-bold">suggestions for you</div>

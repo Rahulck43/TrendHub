@@ -22,7 +22,6 @@ const followUnfollowUser = (userId, followerId) => __awaiter(void 0, void 0, voi
         }
         if (!((_a = user.following) === null || _a === void 0 ? void 0 : _a.includes(followerId))) {
             const updatedUser = yield (0, followRepository_1.follow)(userId, followerId);
-            console.log(updatedUser);
             return {
                 success: true,
                 data: updatedUser,
