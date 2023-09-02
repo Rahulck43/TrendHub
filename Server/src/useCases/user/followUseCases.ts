@@ -10,15 +10,18 @@ const followUnfollowUser= async(userId:string,followerId:string)=>{
         if (!user ||! follower) {
             throw new Error('couldnt find the user or follower')
         }
-        if (!user.following?.includes(followerId)) {
-            const updatedUser = await follow(userId,followerId)
+        if (!user.following?.includes(follower._id)) {
+            console.log('calling follow')
+            const updatedUser = await follow(user._id,follower._id)
             return {
                 success: true,
                 data: updatedUser,
                 message: 'followed successfully'
             }
         } else {
-            const updatedUser = await unfollow(userId,followerId)
+            console.log('calling unfollow')
+
+            const updatedUser = await unfollow(user._id,follower._id)
             return {
                 success: true,
                 data: updatedUser,

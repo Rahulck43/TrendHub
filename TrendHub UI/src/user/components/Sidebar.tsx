@@ -9,11 +9,12 @@ const Sidebar = ({ setCreateModal }:{ setCreateModal:any }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+
     const user = useSelector((store: any) => store.user)
     const isLoggedIn = user.success
     const handleClick = async (action: String) => {
         if (action === 'profile') {
-            navigate('/profile')
+            navigate(`/profile/${user.userId}`)
         } else if (action === 'home') {
             navigate('/home')
         } else if (action === 'logout') {

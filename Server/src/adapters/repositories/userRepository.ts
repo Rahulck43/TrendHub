@@ -139,9 +139,9 @@ const unBlockUser = async (id: string) => {
     }
 }
 
-const getUserData = async (userName: string) => {
+const getUserData = async (userId: string) => {
     try {
-        const userData = await userModel.findOne({ userName });
+        const userData = await userModel.findById(userId).populate('following').populate('followers')
         if (!userData) {
             return false;
         }

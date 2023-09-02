@@ -16,11 +16,11 @@ exports.getSuggestedUsersList = exports.unfollow = exports.follow = void 0;
 const userModel_1 = __importDefault(require("../../entities/userModel"));
 const follow = (userId, followerId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const follower = yield userModel_1.default.findById(followerId);
-        const updatedUser = yield userModel_1.default.findByIdAndUpdate(userId, { $push: { following: follower === null || follower === void 0 ? void 0 : follower._id } }, { new: true });
+        console.log('follow', userId, followerId);
+        const updatedUser = yield userModel_1.default.findByIdAndUpdate(userId, { $push: { following: followerId } }, { new: true }).populate('followers').populate('following');
         if (updatedUser) {
-            yield userModel_1.default.findByIdAndUpdate(followerId, { $push: { followers: userId } }, { new: true });
-            return updatedUser;
+            const updatedFollow = yield userModel_1.default.findByIdAndUpdate(followerId, { $push: { followers: userId } }, { new: true }).populate('followers').populate('following');
+            return { updatedUser, updatedFollow };
         }
         else {
             throw new Error('error while following');
@@ -34,11 +34,12 @@ const follow = (userId, followerId) => __awaiter(void 0, void 0, void 0, functio
 exports.follow = follow;
 const unfollow = (userId, followerId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log('Unfollow', userId, followerId);
         const follower = yield userModel_1.default.findById(followerId);
-        const updatedUser = yield userModel_1.default.findByIdAndUpdate(userId, { $pull: { following: follower === null || follower === void 0 ? void 0 : follower._id } }, { new: true });
+        const updatedUser = yield userModel_1.default.findByIdAndUpdate(userId, { $pull: { following: follower === null || follower === void 0 ? void 0 : follower._id } }, { new: true }).populate('followers').populate('following');
         if (updatedUser) {
-            yield userModel_1.default.findByIdAndUpdate(followerId, { $pull: { followers: userId } }, { new: true });
-            return updatedUser;
+            const updatedFollow = yield userModel_1.default.findByIdAndUpdate(followerId, { $pull: { followers: userId } }, { new: true }).populate('followers').populate('following');
+            return { updatedUser, updatedFollow };
         }
         else {
             throw new Error('error while unfollowing');
@@ -57,7 +58,6 @@ const getSuggestedUsersList = (userId) => __awaiter(void 0, void 0, void 0, func
             followers: { $nin: [userId] }
         });
         if (suggestions) {
-            console.log(suggestions.length);
             return suggestions;
         }
         else

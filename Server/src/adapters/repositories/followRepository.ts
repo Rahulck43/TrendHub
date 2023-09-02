@@ -3,19 +3,19 @@ import userModel from "../../entities/userModel";
 
 const follow = async (userId: string, followerId: string) => {
     try {
-        const follower = await userModel.findById(followerId)
+        console.log('follow',userId,followerId)
         const updatedUser = await userModel.findByIdAndUpdate(
             userId,
-            { $push: { following: follower?._id } },
+            { $push: { following: followerId } },
             { new: true }
-        )
+        ).populate('followers').populate('following')
         if (updatedUser) {
-            await userModel.findByIdAndUpdate(
+          const updatedFollow=  await userModel.findByIdAndUpdate(
                 followerId,
                 { $push: { followers: userId } },
                 { new: true }
-            )
-            return updatedUser
+            ).populate('followers').populate('following')
+            return {updatedUser,updatedFollow}
         } else {
             throw new Error('error while following')
         }
@@ -27,19 +27,21 @@ const follow = async (userId: string, followerId: string) => {
 
 const unfollow = async (userId: string, followerId: string) => {
     try {
+        console.log('Unfollow',userId,followerId)
+
         const follower = await userModel.findById(followerId)
         const updatedUser = await userModel.findByIdAndUpdate(
             userId,
             { $pull: { following: follower?._id } },
             { new: true }
-        )
+        ).populate('followers').populate('following')
         if (updatedUser) {
-            await userModel.findByIdAndUpdate(
+          const updatedFollow=  await userModel.findByIdAndUpdate(
                 followerId,
                 { $pull: { followers: userId } },
                 { new: true }
-            )
-            return updatedUser
+            ).populate('followers').populate('following')
+            return {updatedUser,updatedFollow}
         } else {
             throw new Error('error while unfollowing')
         }

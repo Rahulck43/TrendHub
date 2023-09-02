@@ -159,9 +159,9 @@ const unBlockUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.unBlockUser = unBlockUser;
-const getUserData = (userName) => __awaiter(void 0, void 0, void 0, function* () {
+const getUserData = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const userData = yield userModel_1.default.findOne({ userName });
+        const userData = yield userModel_1.default.findById(userId).populate('following').populate('followers');
         if (!userData) {
             return false;
         }

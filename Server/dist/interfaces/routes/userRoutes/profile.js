@@ -12,8 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const userRepository_1 = require("../../../adapters/repositories/userRepository");
 const profileRouter = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const userName = req.params.id;
-        const { userData, userPosts } = yield (0, userRepository_1.getUserData)(userName);
+        const userId = req.params.id;
+        const { userData, userPosts } = yield (0, userRepository_1.getUserData)(userId);
         if (userData) {
             res.status(200).json({
                 success: true,

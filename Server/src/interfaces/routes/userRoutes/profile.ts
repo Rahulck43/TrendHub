@@ -5,8 +5,8 @@ import { getUserData } from "../../../adapters/repositories/userRepository";
 
 const profileRouter = async (req: Request, res: Response) => {
     try {
-        const userName: string = req.params.id
-        const {userData,userPosts}: any = await getUserData(userName)
+        const userId: string = req.params.id
+        const {userData,userPosts}: any = await getUserData(userId)
         if (userData) {
             res.status(200).json({
                 success: true,

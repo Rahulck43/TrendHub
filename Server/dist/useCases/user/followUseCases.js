@@ -20,8 +20,9 @@ const followUnfollowUser = (userId, followerId) => __awaiter(void 0, void 0, voi
         if (!user || !follower) {
             throw new Error('couldnt find the user or follower');
         }
-        if (!((_a = user.following) === null || _a === void 0 ? void 0 : _a.includes(followerId))) {
-            const updatedUser = yield (0, followRepository_1.follow)(userId, followerId);
+        if (!((_a = user.following) === null || _a === void 0 ? void 0 : _a.includes(follower._id))) {
+            console.log('calling follow');
+            const updatedUser = yield (0, followRepository_1.follow)(user._id, follower._id);
             return {
                 success: true,
                 data: updatedUser,
@@ -29,7 +30,8 @@ const followUnfollowUser = (userId, followerId) => __awaiter(void 0, void 0, voi
             };
         }
         else {
-            const updatedUser = yield (0, followRepository_1.unfollow)(userId, followerId);
+            console.log('calling unfollow');
+            const updatedUser = yield (0, followRepository_1.unfollow)(user._id, follower._id);
             return {
                 success: true,
                 data: updatedUser,

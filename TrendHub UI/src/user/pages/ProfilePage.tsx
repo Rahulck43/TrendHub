@@ -1,9 +1,12 @@
 import React from 'react'
 import Sidebar from '../components/Sidebar'
 import Profile from '../components/Profile'
+import { useParams } from 'react-router'
 
 
 const ProfilePage = () => {
+
+    const {userId}=useParams()
     return (
         <>
             <div className='homepage flex flex-row'>
@@ -11,7 +14,7 @@ const ProfilePage = () => {
                     <Sidebar />
                 </div>
                 <div className='flex-[0.84]'>
-                    <Profile />
+                    <Profile userId={userId} />
                 </div>
             </div>
         </>
