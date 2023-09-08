@@ -12,6 +12,8 @@ import UserPage from "./admin/pages/UserPage"
 import Dash from "./admin/pages/Dash"
 import SettingsPage from "./user/pages/SettingsPage"
 import ReportsPage from "./admin/pages/ReportsPage"
+import ChatPage from "./user/pages/ChatPage"
+// import ChatRoom from "./user/components/ChatRoom"
 // import CreatePost from "./user/components/CreatePost"
 
 
@@ -55,7 +57,10 @@ const router = createBrowserRouter([
     path: "/admin/reports",
     element: <ReportsPage/>
   },
-  
+  {
+    path: "/chat/:id",
+    element: <ChatPage/>
+  },
   
 ])
 

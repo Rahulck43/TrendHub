@@ -4,7 +4,7 @@ import signupRouter from "./userRoutes/signUp";
 import loginRouter from "./userRoutes/userLogin";
 import logoutRouter from "./userRoutes/logout";
 import profileRouter from "./userRoutes/profile";
-import  { editProfile } from "./userRoutes/usersRouter";
+import  { editProfile, getMessages } from "./userRoutes/usersRouter";
 import upload from "../../adapters/middlewares/upload";
 import userAuth from "../../adapters/middlewares/userAuth";
 import { createPost, deletePost, editPost,updateLike,getPost,postComment,putCommentLike,deleteCommentRoute,putEditComment,postReport } from "./userRoutes/postRoutes";
@@ -31,6 +31,7 @@ userRouter.put('/posts/:postId/comments/:commentId',userAuth,putEditComment)
 userRouter.post('/posts/:id/report',userAuth,postReport)
 userRouter.post('/users/:id/follow',userAuth,followUnfollow)
 userRouter.get('/users/suggestions',userAuth,getSuggestions)
+userRouter.get('/users/messages/:id',userAuth,getMessages)
 
 
 

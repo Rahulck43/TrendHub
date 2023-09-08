@@ -1,15 +1,15 @@
-import mongoose from "mongoose";
+import { Types } from "mongoose";
 
 interface Comment {
-  _id:mongoose.Types.ObjectId
-    userId: mongoose.Types.ObjectId;
+  _id:Types.ObjectId
+    userId: Types.ObjectId;
     comment: string;
     createdAt?: Date;
     likes?: string[];
 }
 
 interface Post {
-    userId?: mongoose.Types.ObjectId;
+    userId?: Types.ObjectId;
     caption?: string;
     img?: string;
     likes?: string[];
@@ -23,4 +23,10 @@ interface ReportPost {
   reporters?: string[]
 }
 
-export { Post,Comment,ReportPost };
+interface Message {
+  sender:Types.ObjectId
+  recipient:Types.ObjectId
+  message:string
+}
+
+export { Post,Comment,ReportPost,Message };

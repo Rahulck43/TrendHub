@@ -12,9 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.editProfile = void 0;
+exports.getMessages = exports.editProfile = void 0;
 const userRepository_1 = require("../../../adapters/repositories/userRepository");
 const cloudinary_1 = __importDefault(require("../../../adapters/utils/cloudinary"));
+const messageRepository_1 = require("../../../adapters/repositories/messageRepository");
 const editProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
@@ -78,3 +79,26 @@ const editProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.editProfile = editProfile;
+const getMessages = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _b;
+    try {
+        const userId = req.params.id;
+        const recipientId = (_b = req.query.recipientId) === null || _b === void 0 ? void 0 : _b.toString();
+        if (recipientId && userId) {
+            console.log('caalling repo');
+            const messages = yield (0, messageRepository_1.getChat)(userId, recipientId);
+            res.status(200).json({
+                success: true,
+                message: 'conversations retrieved successfully',
+                data: messages
+            });
+        }
+    }
+    catch (error) {
+        res.status(400).json({
+            success: false,
+            message: error.message
+        });
+    }
+});
+exports.getMessages = getMessages;

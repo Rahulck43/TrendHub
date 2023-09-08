@@ -31,4 +31,5 @@ userRouter.put('/posts/:postId/comments/:commentId', userAuth_1.default, postRou
 userRouter.post('/posts/:id/report', userAuth_1.default, postRoutes_1.postReport);
 userRouter.post('/users/:id/follow', userAuth_1.default, followRoutes_1.followUnfollow);
 userRouter.get('/users/suggestions', userAuth_1.default, followRoutes_1.getSuggestions);
+userRouter.get('/users/messages/:id', userAuth_1.default, usersRouter_1.getMessages);
 exports.default = userRouter;

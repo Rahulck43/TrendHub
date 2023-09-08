@@ -14,6 +14,7 @@ const Sidebar = ({ setCreateModal }:{ setCreateModal:any }) => {
     const isLoggedIn = user.success
     const handleClick = async (action: String) => {
         if (action === 'profile') {
+            console.log('calling url')
             navigate(`/profile/${user.userId}`)
         } else if (action === 'home') {
             navigate('/home')
